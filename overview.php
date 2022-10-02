@@ -221,16 +221,6 @@ $client->setIncludeGrantedScopes(true);
             </div>
           </div>
         </div>
-        <div class="col m4 s12">
-          <div class="card">
-            <div class="card-content">
-              <span class="card-title">RSS Feed</span>
-              <div class="rssHeight">
-                <script src="<?php echo $rssFeed;?>"></script>
-              </div>
-            </div>
-          </div>
-        </div>
       </div>
 
     </div>
