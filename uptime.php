@@ -3,15 +3,20 @@ session_start();
 
 include 'loginCheck.php';
 ?>
+
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
+
   <head>
     <?php include 'head.php';?>
+
     <title>Uptime - Admin Panel</title>
   </head>
+
   <body>
     <!-- Include the Nav into the page -->
     <?php include 'nav.php';?>
+
     <div class="main">
       <!-- Button to show/hide menu -->
       <a href="#" data-target="slide-out" class="sidenav-trigger"><i class="material-icons">menu</i></a>
@@ -66,6 +71,9 @@ include 'loginCheck.php';
       </div>
 
     </div>
+
     <?php include 'foot.php';?>
+
   </body>
+
 </html>

@@ -15,12 +15,23 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   }
 }
 ?>
+
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
+
   <head>
-    <?php include 'head.php';?>
+    <?php
+        /**
+         * Declare variables defined in config file.
+         *
+         * @var $conn mysqli The database connection variable.
+         */
+        include 'head.php';
+    ?>
+
     <title>Manage Users - Admin Panel</title>
   </head>
+
   <body>
     <!-- Include the Nav into the page -->
     <?php include 'nav.php';?>
@@ -89,7 +100,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
           <tbody>
             <?php
               if (!isset($_GET['searchquery'])) {
-                $sql = "SELECT `clientID`, `email`, `lastLogin`, `account1`, `account2`, `account3` FROM `clients` LIMIT 10 OFFSET {$offset}";
+                $sql = "SELECT `clientID`, `email`, `lastLogin`, `account1`, `account2`, `account3` FROM `clients` LIMIT 10 OFFSET $offset";
                 $fullResult = $conn->query($sql);
                 
                 while ($row = $fullResult->fetch_assoc()) {
@@ -151,7 +162,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 if ($_GET['searchoptions'] == 'email') {
                   $searchquery = urldecode($_GET['searchquery']);
                   $searchquery = '%' . $searchquery . '%';
-                  $sql = "SELECT `clientID`, `email`, `lastLogin`, `account1`, `account2`, `account3` FROM `clients` WHERE `email` LIKE '{$searchquery}' LIMIT 10 OFFSET {$offset}";
+                  $sql = "SELECT `clientID`, `email`, `lastLogin`, `account1`, `account2`, `account3` FROM `clients` WHERE `email` LIKE '$searchquery' LIMIT 10 OFFSET $offset";
                   $fullResult = $conn->query($sql);
                   
                   while ($row = $fullResult->fetch_assoc()) {
@@ -210,7 +221,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                       echo "</tr>";
                   }
                 } else if ($_GET['searchoptions'] == 'clientID') {
-                  $sql = "SELECT `clientID`, `email`, `lastLogin`, `account1`, `account2`, `account3` FROM `clients` WHERE `clientID` = '{$_GET["searchquery"]}' LIMIT 10 OFFSET {$offset}";
+                  $sql = "SELECT `clientID`, `email`, `lastLogin`, `account1`, `account2`, `account3` FROM `clients` WHERE `clientID` = '{$_GET["searchquery"]}' LIMIT 10 OFFSET $offset";
                   $fullResult = $conn->query($sql);
                   
                   while ($row = $fullResult->fetch_assoc()) {
@@ -276,67 +287,20 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <tr class="paginator">
               <td colspan="5" class="center">
                 <ul class="pagination">
-                  <?php 
-                    if (isset($_GET['page'])) {
-                      $pageNum = $_GET['page'];
-                      if ($pageNum > 2) {
-                        echo '<li class="waves-effect"><a href="manageusers.php?' . addQueryToURL('page', ($pageNum - 1)) . '"><i class="material-icons">chevron_left</i></a></li>';
-                        echo '<li class="waves-effect"><a href="manageusers.php?' . addQueryToURL('page', ($pageNum - 2)) . '">' . ($pageNum - 2) . '</a></li>';
-                        echo '<li class="waves-effect"><a href="manageusers.php?' . addQueryToURL('page', ($pageNum - 1)) . '">' . ($pageNum - 1) . '</a></li>';
-                        echo '<li class="active"><a href="manageusers.php?' . addQueryToURL('page', ($pageNum)) . '">' . $pageNum . '</a></li>';
-                        echo '<li class="waves-effect"><a href="manageusers.php?' . addQueryToURL('page', ($pageNum + 1)) . '">' . ($pageNum + 1) . '</a></li>';
-                        echo '<li class="waves-effect"><a href="manageusers.php?' . addQueryToURL('page', ($pageNum + 2)) . '">' . ($pageNum + 2) . '</a></li>';
-                        echo '<li class="waves-effect"><a href="manageusers.php?' . addQueryToURL('page', ($pageNum + 1)) . '"><i class="material-icons">chevron_right</i></a></li>';
-                      } else if ($pageNum == 2) {
-                        echo '<li class="waves-effect"><a href="manageusers.php?' . addQueryToURL('page', 1) . '"><i class="material-icons">chevron_left</i></a></li>';
-                        echo '<li class="waves-effect"><a href="manageusers.php?' . addQueryToURL('page', 1) . '">1</a></li>';
-                        echo '<li class="active"><a href="manageusers.php?' . addQueryToURL('page', 2) . '">2</a></li>';
-                        echo '<li class="waves-effect"><a href="manageusers.php?' . addQueryToURL('page', 3) . '">3</a></li>';
-                        echo '<li class="waves-effect"><a href="manageusers.php?' . addQueryToURL('page', 4) . '">4</a></li>';
-                        echo '<li class="waves-effect"><a href="manageusers.php?' . addQueryToURL('page', 5) . '">5</a></li>';
-                        echo '<li class="waves-effect"><a href="manageusers.php?' . addQueryToURL('page', 3) . '"><i class="material-icons">chevron_right</i></a></li>';
-                      } else {
-                        echo '<li class="disabled"><a href="#!"><i class="material-icons">chevron_left</i></a></li>';
-                        echo '<li class="active"><a href="manageusers.php?' . addQueryToURL('page', 1) . '">1</a></li>';
-                        echo '<li class="waves-effect"><a href="manageusers.php?' . addQueryToURL('page', 2) . '">2</a></li>';
-                        echo '<li class="waves-effect"><a href="manageusers.php?' . addQueryToURL('page', 3) . '">3</a></li>';
-                        echo '<li class="waves-effect"><a href="manageusers.php?' . addQueryToURL('page', 4) . '">4</a></li>';
-                        echo '<li class="waves-effect"><a href="manageusers.php?' . addQueryToURL('page', 5) . '">5</a></li>';
-                        echo '<li class="waves-effect"><a href="manageusers.php?' . addQueryToURL('page', 2) . '"><i class="material-icons">chevron_right</i></a></li>';
-                      }
-                    } else {
-                      echo '<li class="disabled"><a href="#!"><i class="material-icons">chevron_left</i></a></li>';
-                      echo '<li class="active"><a href="manageusers.php?' . addQueryToURL('page', 1) . '">1</a></li>';
-                      echo '<li class="waves-effect"><a href="manageusers.php?' . addQueryToURL('page', 2) . '">2</a></li>';
-                      echo '<li class="waves-effect"><a href="manageusers.php?' . addQueryToURL('page', 3) . '">3</a></li>';
-                      echo '<li class="waves-effect"><a href="manageusers.php?' . addQueryToURL('page', 4) . '">4</a></li>';
-                      echo '<li class="waves-effect"><a href="manageusers.php?' . addQueryToURL('page', 5) . '">5</a></li>';
-                      echo '<li class="waves-effect"><a href="manageusers.php?' . addQueryToURL('page', 2) . '"><i class="material-icons">chevron_right</i></a></li>';
-                    }
-                    function addQueryToURL($query, $queryValue) {
-                      $url = "https://admin.ultifreehosting.com" . $_SERVER['REQUEST_URI'];
-                      $url_parts = parse_url($url);
-                      if (isset($url_parts['query'])) {
-                          parse_str($url_parts['query'], $params);
-                      } else {
-                          $params = array();
-                      }
-                      
-                      $params[$query] = $queryValue;
-                      
-                      $url_parts['query'] = http_build_query($params);
-                      
-                      return $url_parts['query'];
-                    }
-                  ?>
+                    <?php
+                        include('pagination.php');
+                        displayPagination("manageusers.php");
+                    ?>
                 </ul>
               </td>
             </tr>
           </tbody>
         </table>
       </div>
-      
     </div>
+
     <?php include 'foot.php';?>
+
   </body>
+
 </html>

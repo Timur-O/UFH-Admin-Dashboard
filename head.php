@@ -1,4 +1,12 @@
-<?php require 'config.php'; ?>
+<?php
+    /**
+     * Declare variables from config file.
+     *
+     * @var $uptimeKey string The secret key for uptime robot
+     */
+    require 'config.php';
+?>
+
 <meta charset="utf-8">
 <!--Let browser know website is optimized for mobile-->
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>

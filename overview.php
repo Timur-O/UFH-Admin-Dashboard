@@ -12,12 +12,27 @@ $client->addScope(Google_Service_Analytics::ANALYTICS_READONLY);
 $client->setAccessType('offline');
 $client->setIncludeGrantedScopes(true);
 ?>
+
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
+
   <head>
-    <?php include 'head.php';?>
+    <?php
+        /**
+         * Declare variables defined in config file.
+         *
+         * @var $conn mysqli The database connection variable
+         * @var $conversionsTableName string The name of the table which contains conversion information
+         * @var $affiliateTableName string The name of the table containing affiliate information
+         * @var $minPayoutAmount int The minimum payout amount
+         * @var $currency string The currency
+         * @var $twitterHandle string The twitter handle for which to display the feed
+         */
+        include 'head.php';
+    ?>
     <title>Overview - Admin Panel</title>
   </head>
+
   <body>
     <!-- Include the Nav into the page -->
     <?php include 'nav.php';?>
@@ -101,21 +116,21 @@ $client->setIncludeGrantedScopes(true);
         $result = $conn->query($sql)->fetch_assoc();
         $numberOfClients = $result['num'];
 
-        $sql2 = "SELECT COUNT(*) AS 'num' FROM `{$conversionsTableName}`";
+        $sql2 = "SELECT COUNT(*) AS 'num' FROM `$conversionsTableName`";
         $resultConversions = $conn->query($sql2)->fetch_assoc();
         $numberOfConversions = $resultConversions['num'];
         
-        $sql3 = "SELECT SUM(`commissionBalance`) AS 'totalCommissions' FROM `{$affiliateTableName}`";
+        $sql3 = "SELECT SUM(`commissionBalance`) AS 'totalCommissions' FROM `$affiliateTableName`";
         $resultTotalCommission = $conn->query($sql3)->fetch_assoc();
         $totalCommissionValue = $resultTotalCommission['totalCommissions'];
         $totalCommissionValue = number_format((float)$totalCommissionValue, 2, '.', '');
 
-        $sql4 = "SELECT SUM(`commissionBalance`) AS 'totalCommissions' FROM `{$affiliateTableName}` WHERE `commissionBalance` > {$minPayoutAmount}";
+        $sql4 = "SELECT SUM(`commissionBalance`) AS 'totalCommissions' FROM `$affiliateTableName` WHERE `commissionBalance` > $minPayoutAmount";
         $resultPayableCommission = $conn->query($sql4)->fetch_assoc();
         $payableCommissionValue = $resultPayableCommission['totalCommissions'];
         $payableCommissionValue = number_format((float)$payableCommissionValue, 2, '.', '');
 
-        $sql5 = "SELECT SUM(clicks) AS 'totalClicks' FROM `{$affiliateTableName}`";
+        $sql5 = "SELECT SUM(clicks) AS 'totalClicks' FROM `$affiliateTableName`";
         $resultClicks = $conn->query($sql5)->fetch_assoc();
         $numberOfClicks = $resultClicks['totalClicks'];
 

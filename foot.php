@@ -1,3 +1,11 @@
+<?php
+/**
+ * Declare variables defined in config / dbInfo files.
+ *
+ * @var $conn mysqli The database connection variable
+ * @var $companyName string The name of the company
+ */
+?>
 <footer>
   <div class="row">
     <div class="left-align col s6">Copyright © <?php echo $companyName;?></div>

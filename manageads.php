@@ -3,15 +3,27 @@ session_start();
 
 include 'loginCheck.php';
 ?>
+
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
+
   <head>
-    <?php include 'head.php';?>
+    <?php
+        /**
+         * Declare variables defined in config file.
+         *
+         * @var $conn mysqli The database connection variable.
+         */
+        include 'head.php';
+    ?>
+
     <title>Manage Ads - Admin Panel</title>
   </head>
+
   <body>
     <!-- Include the Nav into the page -->
     <?php include 'nav.php';?>
+
     <div class="main">
       <!-- Button to show/hide menu -->
       <a href="#" data-target="slide-out" class="sidenav-trigger"><i class="material-icons">menu</i></a>
@@ -31,27 +43,25 @@ include 'loginCheck.php';
             </thead>
             <tbody>
           <?php
-            include 'dbInfo.php';
-            
             if ($_SERVER["REQUEST_METHOD"] == "POST") {
               if (isset($_POST['code'])) {
                 $id = $_POST['id'];
                 $code = $_POST['code'];
                 
-                $sql = "UPDATE `ads` SET `adCode` = '{$code}' WHERE `adID` = '{$id}'";
+                $sql = "UPDATE `ads` SET `adCode` = '$code' WHERE `adID` = '$id'";
                 $result = $conn->query($sql);
               } else if (isset($_POST['newLocation'])) {
                 $newLocation = $_POST['newLocation'];
                 $id = $_POST['id'];
                 
-                $sql = "UPDATE `ads` SET `location` = '{$newLocation}' WHERE `adID` = '{$id}'";
+                $sql = "UPDATE `ads` SET `location` = '$newLocation' WHERE `adID` = '$id'";
                 $result = $conn->query($sql);
               } else if (isset($_POST['locationAdd'])) {
                 $locationAdd = $_POST['locationAdd'];
                 $codeAdd = $_POST['codeAdd'];
                 $notesAdd = $_POST['notesAdd'];
                 
-                $sql = "INSERT INTO `ads` (`location`, `adCode`, `notes`) VALUES ('{$locationAdd}', '{$codeAdd}', '{$notesAdd}')";
+                $sql = "INSERT INTO `ads` (`location`, `adCode`, `notes`) VALUES ('$locationAdd', '$codeAdd', '$notesAdd')";
                 $result = $conn->query($sql);
               }
             }
@@ -117,6 +127,9 @@ include 'loginCheck.php';
       </div>
       
     </div>
+
     <?php include 'foot.php';?>
+
   </body>
+
 </html>

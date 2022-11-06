@@ -12,15 +12,19 @@ $client->addScope(Google_Service_Analytics::ANALYTICS_READONLY);
 $client->setAccessType('offline');
 $client->setIncludeGrantedScopes(true);
 ?>
+
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
+
   <head>
     <?php include 'head.php';?>
     <title>Analytics - Admin Panel</title>
   </head>
+
   <body>
     <!-- Include the Nav into the page -->
     <?php include 'nav.php';?>
+
     <div class="main">
       <!-- Button to show/hide menu -->
       <a href="#" data-target="slide-out" class="sidenav-trigger"><i class="material-icons">menu</i></a>
@@ -309,7 +313,6 @@ $client->setIncludeGrantedScopes(true);
                 for ($k = 0; $k < count($values); $k++) {
                   $deviceArray[$dimensions[$i]] = $values[$k];
                 }
-
               }
             }
           }
@@ -507,7 +510,7 @@ $client->setIncludeGrantedScopes(true);
           }
         }
 
-        echo "<script>var countries = {";
+        echo "<script>let countries = {";
         $tempCount = 0;
         foreach($countryArray as $x => $x_value) {
             if ($tempCount < 10) {
@@ -517,7 +520,7 @@ $client->setIncludeGrantedScopes(true);
         }
         echo '};</script>';
 
-        echo "<script>var devices = {";
+        echo "<script>let devices = {";
         $tempCount = 0;
         foreach($deviceArray as $x => $x_value) {
             if ($tempCount < 10) {
@@ -726,8 +729,10 @@ $client->setIncludeGrantedScopes(true);
           </div>
         </div>
       </div>
-
     </div>
+
     <?php include 'foot.php';?>
+
   </body>
+
 </html>

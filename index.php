@@ -1,9 +1,15 @@
 <?php
 session_start();
+
+/**
+ * Declare variables defined in the dbInfo file
+ * @var $conn mysqli The database connection variable
+ */
 include 'dbInfo.php';
+
 if (isset($_SESSION['adminUser'])) {
   $adminUser = $_SESSION['adminUser'];
-  $sql = "SELECT `email`, `adStatus` FROM `clients` WHERE `clientID` = '{$adminUser}'";
+  $sql = "SELECT `email`, `adStatus` FROM `clients` WHERE `clientID` = '$adminUser'";
   $result = $conn->query($sql)->fetch_assoc();
   $adStatus = $result['adStatus'];
   if ($adStatus == "2") {
@@ -14,12 +20,15 @@ if (isset($_SESSION['adminUser'])) {
 
 $passwordEmailError = "";
 ?>
+
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
+
   <head>
     <?php include 'head.php';?>
     <title>Login - Admin Panel</title>
   </head>
+
   <body>
     <div class="loginmain">
       <div class="row rowtoppadded10">
@@ -27,8 +36,6 @@ $passwordEmailError = "";
           <h5>Login</h5>
           <?php
             if ($_SERVER["REQUEST_METHOD"] == "POST") {
-                include 'dbInfo.php';
-
                 $passwordEmailError = "";
                 $passwordValid = $emailValid = false;
 
@@ -39,7 +46,7 @@ $passwordEmailError = "";
                   if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
                     $passwordEmailError = "Invalid Email Format";
                   } else {
-                    $sql = "SELECT * FROM `clients` WHERE `email` = '{$email}' AND `adStatus` = '2'";
+                    $sql = "SELECT * FROM `clients` WHERE `email` = '$email' AND `adStatus` = '2'";
                     $result = $conn->query($sql);
 
                     if (empty($result) OR $result->num_rows === 0) {
@@ -56,7 +63,7 @@ $passwordEmailError = "";
                 } else {
                   $password = test_input($_POST["password"]);
 
-                  $sql = "SELECT `password` FROM `clients` WHERE `email` = '{$email}' AND `adStatus` = '2'";
+                  $sql = "SELECT `password` FROM `clients` WHERE `email` = '$email' AND `adStatus` = '2'";
                   $result = $conn->query($sql) or die($conn->error);
                   $result = $result->fetch_assoc();
                   $hashPass = $result['password'];
@@ -70,7 +77,7 @@ $passwordEmailError = "";
                 }
 
                 if ($passwordValid && $emailValid) {
-                  $sql = "SELECT `clientID` FROM `clients` WHERE `email` = '{$email}'";
+                  $sql = "SELECT `clientID` FROM `clients` WHERE `email` = '$email'";
                   $result = $conn->query($sql) or die($conn->error);
                   $result = $result->fetch_assoc();
                   $clientID = $result['clientID'];
@@ -86,8 +93,7 @@ $passwordEmailError = "";
             function test_input($data) {
               $data = trim($data);
               $data = stripslashes($data);
-              $data = htmlspecialchars($data);
-              return $data;
+              return htmlspecialchars($data);
             }
           ?>
           <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post">
@@ -107,6 +113,9 @@ $passwordEmailError = "";
         </div>
       </div>
     </div>
+
     <?php include 'foot.php';?>
+
   </body>
+
 </html>
