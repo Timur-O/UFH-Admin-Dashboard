@@ -17,7 +17,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     if (verify_signature($body, $github_secret_webhook)) {
         if (json_decode($body, true)['ref'] == 'refs/heads/main') {
-            shell_exec("git pull");
+            echo "\n" . shell_exec("git pull 2>&1") . "\n";
         }
     }
 }
