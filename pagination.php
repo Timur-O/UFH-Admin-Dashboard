@@ -20,7 +20,7 @@ function displayPagination($page) {
             echo '<li class="waves-effect"><a href="' . $page . '?' . addQueryToURL('pagePending', 5) . '">5</a></li>';
             echo '<li class="waves-effect"><a href="' . $page . '?' . addQueryToURL('pagePending', 3) . '"><i class="material-icons">chevron_right</i></a></li>';
         } else {
-            echo '<li class="disabled"><a href="#"><i class="material-icons">chevron_left</i></a></li>';
+            echo '<li class="disabled"><a href="#!"><i class="material-icons">chevron_left</i></a></li>';
             echo '<li class="active"><a href="' . $page . '?' . addQueryToURL('pagePending', 1) . '">1</a></li>';
             echo '<li class="waves-effect"><a href="' . $page . '?' . addQueryToURL('pagePending', 2) . '">2</a></li>';
             echo '<li class="waves-effect"><a href="' . $page . '?' . addQueryToURL('pagePending', 3) . '">3</a></li>';
@@ -29,7 +29,7 @@ function displayPagination($page) {
             echo '<li class="waves-effect"><a href="' . $page . '?' . addQueryToURL('pagePending', 2) . '"><i class="material-icons">chevron_right</i></a></li>';
         }
     } else {
-        echo '<li class="disabled"><a href="#"><i class="material-icons">chevron_left</i></a></li>';
+        echo '<li class="disabled"><a href="#!"><i class="material-icons">chevron_left</i></a></li>';
         echo '<li class="active"><a href="' . $page . '?' . addQueryToURL('pagePending', 1) . '">1</a></li>';
         echo '<li class="waves-effect"><a href="' . $page . '?' . addQueryToURL('pagePending', 2) . '">2</a></li>';
         echo '<li class="waves-effect"><a href="' . $page . '?' . addQueryToURL('pagePending', 3) . '">3</a></li>';
