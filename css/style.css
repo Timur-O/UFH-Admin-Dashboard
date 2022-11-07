@@ -45,7 +45,7 @@ footer {
 }
 
 .footerlogin {
-  padding-left: 0px !important;
+  padding-left: 0 !important;
 }
 
 .rowtoppadded2 {
@@ -113,16 +113,16 @@ footer {
 
 @media only screen and (max-width: 993px) {
   .main {
-    padding-left: 0px;
+    padding-left: 0;
   }
   .sidenav-trigger {
     display: block;
   }
   footer {
-    padding-left: 0px;
+    padding-left: 0;
   }
   .rowtoppadded {
-    padding-top: 0%;
+    padding-top: 0;
   }
   #overalluptimeheader {
     margin-top: 0 !important;

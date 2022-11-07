@@ -1,18 +1,17 @@
 <?php
 session_start();
 
+/**
+ * Declare variables from config file.
+ *
+ * @var $affiliateTableName string The name of the table containing affiliate information
+ * @var $payoutsTableName string The name of the table containing payout information
+ * @var $conn mysqli The MySQL DB Connection Variable
+ */
 include 'dbInfo.php';
+include 'config.php';
 
 if (isset($_POST['markPaid'])) {
-    /**
-     * Declare variables from config file.
-     *
-     * @var $affiliateTableName string The name of the table containing affiliate information
-     * @var $payoutsTableName string The name of the table containing payout information
-     * @var $conn mysqli The MySQL DB Connection Variable
-     */
-    include 'config.php';
-
     $payoutAmount = $conn->real_escape_string($_POST['payoutAmount']);
     $affiliateId = $conn->real_escape_string($_POST['affiliateID']);
     
