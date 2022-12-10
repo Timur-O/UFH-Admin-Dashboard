@@ -16,8 +16,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $body = file_get_contents('php://input');
 
     if (verify_signature($body, $github_secret_webhook)) {
+        echo "\n Verified Signature! \n";
         if (json_decode($body, true)['ref'] == 'refs/heads/main') {
-            echo "\n" . shell_exec("sudo -u www-data git reset --hard && sudo -u www-data git pull 2>&1") . "\n";
+            echo "Verified Branch! \n";
+            echo shell_exec("sudo -u www-data git reset --hard && sudo -u www-data git pull 2>&1") . "\n";
         }
     }
 }
