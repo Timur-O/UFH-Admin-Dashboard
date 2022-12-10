@@ -37,8 +37,8 @@ include 'loginCheck.php';
         $result = $conn->query($sql)->fetch_assoc();
         $numberOfPayouts = $result['num'];
         
-        if (isset($_GET['pagePending'])) {
-          $pageNum = $_GET['pagePending'];
+        if (isset($_GET['page'])) {
+          $pageNum = $_GET['page'];
           $offset = ($pageNum - 1) * 10;
         } else {
           $offset = 0;
