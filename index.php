@@ -89,12 +89,6 @@ $passwordEmailError = "";
                   header("Location: overview.php"); die();
                 }
             }
-
-            function test_input($data) {
-              $data = trim($data);
-              $data = stripslashes($data);
-              return htmlspecialchars($data);
-            }
           ?>
           <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post">
             <div class="input-field col s12">
