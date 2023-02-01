@@ -4,7 +4,6 @@
      *
      * @var $uptimeKey string The secret key for uptime robot
      */
-    require 'config.php';
 ?>
 
 <meta charset="utf-8">
